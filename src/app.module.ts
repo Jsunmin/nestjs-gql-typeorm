@@ -8,7 +8,9 @@ import ormConfig from './config/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MobileModule } from './presenters/mobile/mobile.module';
+import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.module';
 
+// 이슈0: 멀티플 엔드포인트 : https://github.com/nestjs/graphql/issues/721
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -24,6 +26,7 @@ import { MobileModule } from './presenters/mobile/mobile.module';
     }),
     TypeOrmModule.forRoot(ormConfig),
     MobileModule,
+    HospitalAdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

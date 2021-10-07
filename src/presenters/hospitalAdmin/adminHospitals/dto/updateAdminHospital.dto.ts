@@ -7,10 +7,4 @@ export class UpdateAdminHospitalInput extends PartialType(
 ) {
   @Field(() => Int)
   id: number;
-
-  @Field({ nullable: true })
-  searchable: boolean;
-
-  @Field({ nullable: true })
-  isDeleted: boolean;
 }
