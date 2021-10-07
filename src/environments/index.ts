@@ -2,8 +2,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log(process.env.SQL_HOST, '###@')
-
 // environment
 const NODE_ENV: string = process.env.NODE_ENV || 'development';
 // application

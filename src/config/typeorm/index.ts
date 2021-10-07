@@ -5,7 +5,7 @@ import { Hospitals } from '../../entities/Hospitals';
 const ormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: TYPEORM.SQL_HOST,
-  port: 3306,
+  port: TYPEORM.SQL_PORT,
   username: TYPEORM.SQL_USERNAME,
   password: TYPEORM.SQL_PASSWORD,
   database: TYPEORM.SQL_DATABASE,
