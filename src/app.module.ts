@@ -1,0 +1,31 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import gqlConfig from './config/graphql';
+import ormConfig from './config/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { MobileModule } from './presenters/mobile/mobile.module';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    // code-first
+    GraphQLModule.forRoot({
+      debug: true,
+      playground: true,
+      autoSchemaFile: join(
+        process.cwd(),
+        'src/config/graphql/generated/schema.gql',
+      ), // false 또한 가능
+      context: gqlConfig.createContext,
+    }),
+    TypeOrmModule.forRoot(ormConfig),
+    MobileModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
