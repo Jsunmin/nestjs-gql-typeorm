@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { TYPEORM } from '../../environments';
-import { Hospitals } from '../../entities/Hospitals';
+import { Hospitals, Doctors } from '../../entities';
 
 const ormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -9,7 +9,7 @@ const ormConfig: TypeOrmModuleOptions = {
   username: TYPEORM.SQL_USERNAME,
   password: TYPEORM.SQL_PASSWORD,
   database: TYPEORM.SQL_DATABASE,
-  entities: [Hospitals],
+  entities: [Hospitals, Doctors],
   // 마이그레이션 관련 세팅
   migrations: [__dirname + '/src/migrations/*.ts'],
   cli: { migrationsDir: 'src/migrations' },

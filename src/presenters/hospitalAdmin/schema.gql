@@ -16,6 +16,8 @@ type MobileHospitals {
 type Query {
   adminHospitals(page: Int = 20, skip: Int = 0): [AdminHospitals]!
   adminhospital(id: Int!): AdminHospitals!
+  adminDoctors: [AdminDoctors]!
+  adminDoctor(id: Int!): AdminDoctors!
 }
 
 type AdminHospitals {
@@ -31,6 +33,7 @@ type AdminHospitals {
   latitude: Float!
   searchable: Boolean
   isDeleted: Boolean
+  doctors: [Doctors]
 }
 
 """
@@ -44,9 +47,52 @@ enum HospitalTypesEnum {
   generalHospital
 }
 
+type Doctors {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  position: String!
+  gender: Int
+  image: String
+  searchable: Boolean
+  hospital: Hospitals
+}
+
+type Hospitals {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  addr: String!
+  phone: String!
+  safePhone: String
+  hospitalType: HospitalTypesEnum!
+  longitude: Float!
+  latitude: Float!
+  searchable: Boolean
+  isDeleted: Boolean
+  doctors: [Doctors]
+}
+
+type AdminDoctors {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  position: String!
+  gender: Int
+  image: String
+  searchable: Boolean
+  hospital: Hospitals
+}
+
 type Mutation {
   createAdminHospital(createAdminHospitalInput: CreateAdminHospitalInput!): AdminHospitals!
   updateAdminHospital(updateAdminHospitalInput: UpdateAdminHospitalInput!): AdminHospitals!
+  createAdminDoctor(createDoctorInput: CreateDoctorInput!): AdminDoctors!
+  updateAdminDoctor(updateDoctorInput: UpdateDoctorInput!): AdminDoctors!
+  removeAdminDoctor(id: Int!): AdminDoctors!
 }
 
 input CreateAdminHospitalInput {
@@ -71,4 +117,48 @@ input UpdateAdminHospitalInput {
   latitude: Float
   searchable: Boolean
   isDeleted: Boolean
+  doctors: [DoctorInput!]
+}
+
+input DoctorInput {
+  name: String!
+  position: String!
+  gender: Int
+  image: String
+  searchable: Boolean
+  hospital: HospitalInput
+}
+
+input HospitalInput {
+  name: String!
+  addr: String!
+  phone: String!
+  safePhone: String
+  hospitalType: HospitalTypesEnum!
+  longitude: Float!
+  latitude: Float!
+  searchable: Boolean
+  isDeleted: Boolean
+  doctors: [DoctorInput]
+}
+
+input CreateDoctorInput {
+  name: String!
+  position: String!
+  gender: Int!
+  image: String
+  hospitalId: Int
+}
+
+input UpdateDoctorInput {
+  id: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  position: String
+  gender: Int
+  image: String
+  searchable: Boolean
+  hospital: HospitalInput
+  hospitalId: Int
 }

@@ -1,6 +1,12 @@
 import { Entity, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import {
+  Field,
+  ObjectType,
+  InputType,
+  registerEnumType,
+} from '@nestjs/graphql';
 import { DefaultTableForm } from './commonSchema';
+import { Doctors } from './Doctors';
 
 export enum HospitalTypesEnum {
   'hospital' = 1,
@@ -12,8 +18,9 @@ registerEnumType(HospitalTypesEnum, {
 });
 // code-first: SDL과 DDL 일원화 & code type -> schema 로 (type-graphql 지향)
 
-@ObjectType({ isAbstract: true })
 @Entity({ schema: 'sparrowT', name: 'hospitals' })
+@ObjectType({ isAbstract: true })
+@InputType('HospitalInput', { isAbstract: true })
 export class Hospitals extends DefaultTableForm {
   constructor(hospital?: Partial<Hospitals>) {
     super();
@@ -61,6 +68,10 @@ export class Hospitals extends DefaultTableForm {
   @Field({ nullable: true })
   @Column({ default: false })
   isDeleted: boolean;
+
+  @Field(() => [Doctors], { nullable: 'itemsAndList' })
+  @OneToMany(() => Doctors, (doctor) => doctor.hospital)
+  doctors: Doctors[];
 
   getMaskedPhone(): string {
     const maskedFields = this.phone.slice(5).replace(/[0-9]/g, '*');
