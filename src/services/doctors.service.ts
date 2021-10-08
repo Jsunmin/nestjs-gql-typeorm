@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Doctors, Hospitals } from 'src/entities';
 import { Repository } from 'typeorm';
@@ -20,7 +20,7 @@ export class DoctorsService {
         where: { id: createDoctorInput.hospitalId },
       });
       if (!doctor.hospital) {
-        throw new Error('해당 병원 존재X!');
+        throw new NotFoundException('존재하지 않는 병원입니다.');
       }
     }
     return this.doctorRepository.save(doctor);
@@ -49,7 +49,7 @@ export class DoctorsService {
         where: { id: updateDoctorInput.hospitalId },
       });
       if (!doctor.hospital) {
-        throw new Error('해당 병원 존재X!');
+        throw new NotFoundException('존재하지 않는 병원입니다.');
       }
     }
     this.doctorRepository.merge(doctor, updateDoctorInput);
