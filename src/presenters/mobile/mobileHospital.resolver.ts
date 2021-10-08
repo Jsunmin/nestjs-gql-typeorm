@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
 import { HospitalsService } from 'src/services/hospitals.service';
+import { MobileService } from './mobile.service';
 import { UpdateMobileHospitalInput } from './dto/updateMobileHospital.dto';
 import { MobileHospitals } from './entities/MobileHospital';
 
 @Injectable()
 @Resolver()
 export class MobileHospitalsResolver {
-  constructor(private hospitalService: HospitalsService) {}
+  constructor(
+    private hospitalService: HospitalsService,
+    private mobileService: MobileService,
+  ) {}
 
   @Query(() => [MobileHospitals], { nullable: 'items' })
   async mobileHospitals(
@@ -40,7 +44,7 @@ export class MobileHospitalsResolver {
       updateMobileHospitalInput,
     );
     // 이슈1 클라이언트 도메인레벨에서 추가한 컬럼들은 어디서 지지고 볶을까? 공용 서비스 레이어에서?
-    console.log(savedHospital, '~~', updateMobileHospitalInput);
+    this.mobileService.customMobileHospitalData(updateMobileHospitalInput);
     return savedHospital;
   }
 

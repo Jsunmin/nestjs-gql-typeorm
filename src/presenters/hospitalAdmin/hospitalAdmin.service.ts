@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { CreateHospitalAdminInput } from './dto/create-hospitalAdmin.input';
-import { UpdateHospitalAdminInput } from './dto/update-hospitalAdmin.input';
+import { CreateAdminHospitalInput } from './dto/createAdminHospital.dto';
+import { UpdateAdminHospitalInput } from './dto/updateAdminHospital.dto';
 
 @Injectable()
 export class HospitalAdminService {
-  create(createHospitalAdminInput: CreateHospitalAdminInput) {
-    return 'This action adds a new hospitalAdmin';
+  createHospitalAdditionalLogic(
+    createHospitalAdminInput: CreateAdminHospitalInput,
+  ) {
+    console.log('[custom]:', createHospitalAdminInput);
+    return true;
   }
 
-  findAll() {
+  findHospitalAdditionalLogic() {
     return `This action returns all hospitalAdmin`;
   }
 
-  findOne(id: number) {
+  findOneHospitalAdditionalLogic(id: number) {
     return `This action returns a #${id} hospitalAdmin`;
   }
 
-  update(id: number, updateHospitalAdminInput: UpdateHospitalAdminInput) {
-    return `This action updates a #${id} hospitalAdmin`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} hospitalAdmin`;
+  updateHospitalAdditionalLogic(
+    id: number,
+    updateHospitalAdminInput: UpdateAdminHospitalInput,
+  ) {
+    console.log(id, updateHospitalAdminInput);
+    return true;
   }
 }

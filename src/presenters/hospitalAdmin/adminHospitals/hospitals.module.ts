@@ -7,5 +7,6 @@ import { Hospitals } from 'src/entities/Hospitals';
 @Module({
   imports: [TypeOrmModule.forFeature([Hospitals])],
   providers: [HospitalsService, HospitalsResolver],
+  exports: [HospitalsService],
 })
 export class HospitalsModule {}

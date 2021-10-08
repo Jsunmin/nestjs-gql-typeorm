@@ -14,27 +14,61 @@ type MobileHospitals {
 }
 
 type Query {
-  hospitalAdmin(id: Int!): HospitalAdmin!
+  adminHospitals(page: Int = 20, skip: Int = 0): [AdminHospitals]!
+  adminhospital(id: Int!): AdminHospitals!
 }
 
-type HospitalAdmin {
-  """Example field (placeholder)"""
-  exampleField: Int!
+type AdminHospitals {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  addr: String!
+  phone: String!
+  safePhone: String
+  hospitalType: HospitalTypesEnum!
+  longitude: Float!
+  latitude: Float!
+  searchable: Boolean
+  isDeleted: Boolean
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum HospitalTypesEnum {
+  hospital
+  pharmacy
+  generalHospital
 }
 
 type Mutation {
-  createHospitalAdmin(createHospitalAdminInput: CreateHospitalAdminInput!): HospitalAdmin!
-  updateHospitalAdmin(updateHospitalAdminInput: UpdateHospitalAdminInput!): HospitalAdmin!
-  removeHospitalAdmin(id: Int!): HospitalAdmin!
+  createAdminHospital(createAdminHospitalInput: CreateAdminHospitalInput!): AdminHospitals!
+  updateAdminHospital(updateAdminHospitalInput: UpdateAdminHospitalInput!): AdminHospitals!
 }
 
-input CreateHospitalAdminInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+input CreateAdminHospitalInput {
+  name: String!
+  addr: String!
+  phone: String!
+  hospitalType: HospitalTypesEnum!
+  longitude: Float!
+  latitude: Float!
 }
 
-input UpdateHospitalAdminInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+input UpdateAdminHospitalInput {
   id: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  addr: String
+  phone: String
+  safePhone: String
+  hospitalType: HospitalTypesEnum
+  longitude: Float
+  latitude: Float
+  searchable: Boolean
+  isDeleted: Boolean
 }
