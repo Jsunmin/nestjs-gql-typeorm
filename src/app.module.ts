@@ -15,18 +15,28 @@ import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.mo
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     // code-first
+    MobileModule,
+    HospitalAdminModule,
+    GraphQLModule.forRoot({
+      debug: true,
+      playground: true,
+      autoSchemaFile: join(process.cwd(), 'src/presenters/mobile/schema.gql'),
+      path: 'mobile/graphql',
+      include: [MobileModule],
+      context: gqlConfig.createContext,
+    }),
     GraphQLModule.forRoot({
       debug: true,
       playground: true,
       autoSchemaFile: join(
         process.cwd(),
-        'src/config/graphql/generated/schema.gql',
-      ), // false 또한 가능
+        'src/presenters/hospitalAdmin/schema.gql',
+      ),
+      path: 'hospitaladmin/graphql',
+      include: [HospitalAdminModule],
       context: gqlConfig.createContext,
     }),
     TypeOrmModule.forRoot(ormConfig),
-    MobileModule,
-    HospitalAdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

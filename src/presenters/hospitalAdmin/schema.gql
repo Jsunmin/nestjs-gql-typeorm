@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type MobileHospitals {
+  id: Int!
+  name: String!
+  addr: String!
+  safePhone: String
+  longitude: Float!
+  latitude: Float!
+  appHospitalField1: String
+  appHospitalField2: String
+}
+
+type Query {
+  hospitalAdmin(id: Int!): HospitalAdmin!
+}
+
+type HospitalAdmin {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Mutation {
+  createHospitalAdmin(createHospitalAdminInput: CreateHospitalAdminInput!): HospitalAdmin!
+  updateHospitalAdmin(updateHospitalAdminInput: UpdateHospitalAdminInput!): HospitalAdmin!
+  removeHospitalAdmin(id: Int!): HospitalAdmin!
+}
+
+input CreateHospitalAdminInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateHospitalAdminInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}

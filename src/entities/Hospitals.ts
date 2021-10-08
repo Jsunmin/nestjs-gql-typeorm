@@ -12,7 +12,7 @@ registerEnumType(HospitalTypesEnum, {
 });
 // code-first: SDL과 DDL 일원화 & code type -> schema 로 (type-graphql 지향)
 
-@ObjectType()
+@ObjectType({ isAbstract: true })
 @Entity({ schema: 'sparrowT', name: 'hospitals' })
 export class Hospitals extends DefaultTableForm {
   constructor(hospital?: Partial<Hospitals>) {
