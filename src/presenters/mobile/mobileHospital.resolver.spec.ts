@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MobileResolver } from './mobile.resolver';
+import { MobileHospitalsResolver } from './mobileHospital.resolver';
 import { MobileService } from './mobile.service';
 
-describe('MobileResolver', () => {
-  let resolver: MobileResolver;
+describe('MobileHospitalsResolver', () => {
+  let resolver: MobileHospitalsResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MobileResolver, MobileService],
+      providers: [MobileHospitalsResolver, MobileService],
     }).compile();
 
-    resolver = module.get<MobileResolver>(MobileResolver);
+    resolver = module.get<MobileHospitalsResolver>(MobileHospitalsResolver);
   });
 
   it('should be defined', () => {

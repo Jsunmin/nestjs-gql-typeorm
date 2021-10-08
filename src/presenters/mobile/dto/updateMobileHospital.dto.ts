@@ -1,5 +1,5 @@
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
-import { MobileHospitals } from '../entities/MobileHospitals';
+import { MobileHospitals } from '../entities/MobileHospital';
 
 @InputType()
 export class UpdateMobileHospitalInput extends PartialType(MobileHospitals) {

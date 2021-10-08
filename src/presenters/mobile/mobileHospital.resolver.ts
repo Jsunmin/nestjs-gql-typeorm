@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
 import { HospitalsService } from 'src/services/hospitals.service';
 import { UpdateMobileHospitalInput } from './dto/updateMobileHospital.dto';
-import { MobileHospitals } from './entities/MobileHospitals';
+import { MobileHospitals } from './entities/MobileHospital';
 
 @Injectable()
 @Resolver()
-export class HospitalsResolver {
+export class MobileHospitalsResolver {
   constructor(private hospitalService: HospitalsService) {}
 
   @Query(() => [MobileHospitals], { nullable: 'items' })
