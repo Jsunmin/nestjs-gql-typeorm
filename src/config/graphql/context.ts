@@ -1,6 +1,8 @@
 import { Request } from 'express';
 import { IncomingHttpHeaders } from 'http';
 
+// LC상 Incomming Request ~ 최상단의 흐름
+// - 그 다음 middleware ~ guard ~ interceptor pipe ~ controller ~ service ~ interceptor ~ exception filter ~ response
 interface OriginHeaderInterface extends IncomingHttpHeaders {
   'x-api-token': string;
   'x-api-refreshtoken': string;
