@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
@@ -7,6 +7,7 @@ import gqlConfig from './config/graphql';
 import ormConfig from './config/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { LoggerMiddleware } from './common';
 import { MobileModule } from './presenters/mobile/mobile.module';
 import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.module';
 
@@ -41,4 +42,8 @@ import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.mo
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
