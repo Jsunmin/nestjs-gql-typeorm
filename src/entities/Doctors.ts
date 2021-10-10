@@ -31,7 +31,7 @@ export class Doctors extends DefaultTableForm {
   hospitalId?: number;
 
   @Field(() => Hospitals, { nullable: true })
-  @ManyToOne(() => Hospitals, (hospital) => hospital.doctors)
+  @ManyToOne(() => Hospitals, (hospital) => hospital.doctors) // arg0: 현재 테이블 기준, arg1: 맵핑되는 테이블 기준
   @JoinColumn({ name: 'hospitalId', referencedColumnName: 'id' })
   hospital?: Hospitals;
 }

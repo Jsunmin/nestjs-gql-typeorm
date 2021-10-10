@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Injectable, PipeTransform, ArgumentMetadata } from '@nestjs/common';
 import { validate } from 'class-validator';
-// import { plainToClass } from 'class-transformer';
+import { plainToClass } from 'class-transformer';
 import { UserInputError } from 'apollo-server-core';
 
 /**
@@ -16,9 +16,14 @@ export class ValidationPipe implements PipeTransform<any> {
     if (!metatype || !this.toValidate(metatype)) {
       return value;
     }
-    const object = {}; // plainToClass(metatype, value);
-    const errors = await validate(object);
+    // value: input으로 들어오는 데이터 객체
+    // metatype: 정의한 DTO
+    const object = plainToClass(metatype, value); // 해당 정보로 타입체크할 객체 만들고
+    const errors = await validate(object); // dto, entity에서 제공한 타입규정 체크!
+
+    // input 전체에 대한 유효성검사를 한번에 함으로써, 여러 에러가 나타날수 있음 (<= fields.length)
     if (errors.length > 0) {
+      // 이렇게 던진 에러는 에러 필터를 통해 클라이언트로!
       throw new UserInputError(
         `Form Arguments invalid: ${this.formatErrors(errors)}`,
       );

@@ -37,3 +37,18 @@ yarn add @nestjs/graphql graphql apollo-server-express
     - 둘 다 방향성의 차이일뿐 여러 툴을 쓰면 결국 SDL과 DDL 일원화를 달성할 수 있다. (SRP)
     - 참고 자료
       https://www.prisma.io/blog/the-problems-of-schema-first-graphql-development-x1mn4cb0tyl3 ~ schema-first에 대한 단점과 대안 code-first
+ 5. typeorm +a
+    - schema:drop / schema:sync : 명령어를 통해, 디비 테이블 세팅하거나 아예 날림 (typeorm)
+    - typeorm-model-generator: 기존 프로젝트의 DB를 떠와서 typeorm으로 변형해주는 lib (typeorm-model-generator)
+    - seeding : 초기 데이터 or 테스트 데이터 세팅을 위한 기능 (typeorm-seeding)
+    - seeding : 초기 데이터 세팅 (typeorm-seeding)
+    - seeding : 초기 데이터 세팅 (typeorm-seeding)
+    - migration : DB 테이블의 수정을 code로 기록함 (롤백도 가능) (typeorm)
+         typeorm migration:generate -n xxxxx ~ 실제 DB와 TS로 정의한 스키마를 비교해 migration
+         typeorm migration:create -n xxxxx ~ DB에 migration할 내용을 작성할 파일 생성
+         - 기입해서 migrate 명령치면 적용 (typeorm migration:run / typeorm migration:revert)
+         - TS에서 인식 이슈가 있다. 참고하자!
+  6. validation
+    - class-validator: 데코레이터 패턴으로, 엔티티 or DTO의 특정 필드값의 유효성 조건을 건다!
+      https://www.npmjs.com/package/class-validator#Validation%20decorators
+    - 
