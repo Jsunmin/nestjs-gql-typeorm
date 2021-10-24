@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Doctors, Hospitals } from 'src/entities';
 import { Repository } from 'typeorm';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DoctorsService {
@@ -12,12 +13,18 @@ export class DoctorsService {
     private hospitalRepository: Repository<Hospitals>,
   ) {}
 
-  async create(createDoctorInput: Doctors) {
+  // ObjectType을 때려박아서 처리하려고 생각하지 말고, InputType의 여러 바리에이션을 고려해 args로 처리하자!
+  async create({
+    createDoctorInput,
+    relationalHospitalId,
+  }: {
+    createDoctorInput: Doctors;
+    relationalHospitalId?: number;
+  }) {
     const doctor = this.doctorRepository.create(createDoctorInput);
-    // TODO: 이렇게 관계 지어야만 할까?
-    if (createDoctorInput.hospital) {
+    if (relationalHospitalId) {
       doctor.hospital = await this.hospitalRepository.findOne({
-        where: { id: createDoctorInput.hospital },
+        where: { id: relationalHospitalId },
       });
       if (!doctor.hospital) {
         throw new NotFoundException('존재하지 않는 병원입니다.');

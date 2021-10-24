@@ -17,7 +17,10 @@ export class DoctorsResolver {
     })
     createDoctorInput: CreateDoctorInput,
   ): Promise<AdminDoctors> {
-    return this.doctorsService.create(createDoctorInput);
+    return this.doctorsService.create({
+      createDoctorInput,
+      relationalHospitalId: createDoctorInput.hospitalId,
+    });
   }
 
   @Query(() => [AdminDoctors], { nullable: 'items' })

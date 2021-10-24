@@ -117,13 +117,25 @@ input CreateAdminHospitalInput {
   name: String!
   addr: String!
   phone: String!
-  safePhone: String
   hospitalType: HospitalTypesEnum!
   longitude: Float!
   latitude: Float!
+}
+
+input UpdateAdminHospitalInput {
+  id: Int!
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  addr: String
+  phone: String
+  safePhone: String
+  hospitalType: HospitalTypesEnum
+  longitude: Float
+  latitude: Float
   searchable: Boolean
   isDeleted: Boolean
-  doctors: [DoctorInput]
+  doctors: [DoctorInput!]
 }
 
 input DoctorInput {
@@ -154,48 +166,19 @@ input DoctorTagInput {
   doctor: DoctorInput!
 }
 
-input UpdateAdminHospitalInput {
-  id: Int!
-  createdAt: DateTime
-  updatedAt: DateTime
-  name: String
-  addr: String
-  phone: String
-  safePhone: String
-  hospitalType: HospitalTypesEnum
-  longitude: Float
-  latitude: Float
-  searchable: Boolean
-  isDeleted: Boolean
-  doctors: [DoctorInput!]
-}
-
 input CreateDoctorInput {
   name: String!
   position: String!
   gender: Int!
   image: String
-  doctorTags: [AdminDoctorTagInput]
   hospitalId: Int
-  adminHospital: UpdateAdminHospitalInput!
-}
-
-input AdminDoctorTagInput {
-  tag: String!
-  doctor: DoctorInput!
 }
 
 input UpdateDoctorInput {
-  id: Int!
-  createdAt: DateTime
-  updatedAt: DateTime
-  name: String
-  position: String
-  gender: Int
+  name: String!
+  position: String!
+  gender: Int!
   image: String
-  searchable: Boolean
-  hospital: HospitalInput
-  doctorTags: [AdminDoctorTagInput]
   hospitalId: Int
-  adminHospital: UpdateAdminHospitalInput
+  id: Int!
 }
