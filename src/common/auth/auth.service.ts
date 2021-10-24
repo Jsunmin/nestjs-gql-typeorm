@@ -27,25 +27,14 @@ export class AuthService {
     return bcrypt.compare(password, hash);
   }
 
-  // 로그인 체크 메서드 (이메일로 유저 찾고, passrow 체크)
-  async validateClientUserLogin(email: string, password: string) {
-    const user = await this.userRepository.findOne({ where: { email } });
-    if (!user) {
-      throw new UnauthorizedException('존재하지 않는 사용자입니다!');
-    }
-
-    // password 일치체크
-    const result = await this.comparePassword(password, user.password);
-    if (!result) {
-      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요!');
-    }
+  // access token 관련
+  getUserAccessToken(userId: number) {
     // 해당 user token 전달
     const payload: PayloadType = {
       referenceType: 'CLIENT',
-      referenceId: user.id,
+      referenceId: userId,
     };
     return {
-      email,
       token: this.jwtService.sign(payload),
     };
   }

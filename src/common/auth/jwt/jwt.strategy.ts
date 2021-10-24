@@ -17,6 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     @InjectRepository(AdminUsers)
     private adminUserRepository: Repository<AdminUsers>,
   ) {
+    // token authentication 할때 타는 로직 (시크릿키 주의!)
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,

@@ -1,15 +1,15 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthService } from 'src/common/auth/auth.service';
 import { AdminUsers } from 'src/entities';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
-import * as _ from 'lodash';
 
 @Injectable()
 export class AdminUsersService {
   constructor(
     @InjectRepository(AdminUsers)
     private adminUserRepository: Repository<AdminUsers>,
+    private authService: AuthService,
   ) {}
 
   async create(userInfo: AdminUsers): Promise<AdminUsers> {
@@ -24,7 +24,7 @@ export class AdminUsersService {
 
     const newUser = this.adminUserRepository.create(userInfo);
     // 비밀번호 해시화
-    userInfo.password = await bcrypt.hash(userInfo.password, 12);
+    userInfo.password = await this.authService.hashPassword(userInfo.password);
 
     return this.adminUserRepository.save(newUser);
   }

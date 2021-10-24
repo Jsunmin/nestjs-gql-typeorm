@@ -48,7 +48,7 @@ const TYPEORM = enviroment[NODE_ENV];
 const TOKEN_SECRET: string = process.env.PROJECT_ENV || 'secretKeyTest';
 
 // password
-const BCRYPT_SALT: string = process.env.BCRYPT_SALT || 'bcryptSaltTest';
+const BCRYPT_SALT: number = +process.env.BCRYPT_SALT || 12;
 
 export {
   NODE_ENV,
