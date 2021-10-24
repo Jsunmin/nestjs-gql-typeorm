@@ -1,12 +1,4 @@
-import {
-  Entity,
-  Column,
-  RelationId,
-  PrimaryColumn,
-  ManyToOne,
-  OneToMany,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
 import { DefaultTableForm } from './commonSchema';
 import { Hospitals } from './Hospitals';

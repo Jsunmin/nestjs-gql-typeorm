@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { TYPEORM } from '../../environments';
-import { Hospitals, Doctors, DoctorTags } from '../../entities';
+import { TYPEORM } from 'src/environments';
+import {
+  Hospitals,
+  Doctors,
+  DoctorTags,
+  Users,
+  AdminUsers,
+  Roles,
+} from 'src/entities';
 
 export const ormConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -10,7 +17,7 @@ export const ormConfig: TypeOrmModuleOptions = {
   username: TYPEORM.SQL_USERNAME,
   password: TYPEORM.SQL_PASSWORD,
   database: TYPEORM.SQL_DATABASE,
-  entities: [Hospitals, Doctors, DoctorTags],
+  entities: [Hospitals, Doctors, DoctorTags, Users, AdminUsers, Roles],
   // 마이그레이션 관련 세팅
   // migrations: [__dirname + '/src/migrations/*.ts'],
   // cli: { migrationsDir: 'src/migrations' },
@@ -29,7 +36,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       username: TYPEORM.SQL_USERNAME,
       password: TYPEORM.SQL_PASSWORD,
       database: TYPEORM.SQL_DATABASE,
-      entities: [Hospitals, Doctors, DoctorTags],
+      entities: [Hospitals, Doctors, DoctorTags, Users, AdminUsers, Roles],
       // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
       synchronize: true,
     };
