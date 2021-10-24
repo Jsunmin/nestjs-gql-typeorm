@@ -8,7 +8,7 @@ import { ormConfig } from './config/typeorm';
 import { LoggerMiddleware } from './common';
 import { MobileModule } from './presenters/mobile/mobile.module';
 import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './common/auth/auth.module';
 
 // 이슈0: 멀티플 엔드포인트 : https://github.com/nestjs/graphql/issues/721
 @Module({
