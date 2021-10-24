@@ -32,7 +32,6 @@ export class HospitalsService {
       },
     });
     if (existedHospital) {
-      // 이렇게 에러만 정의하면 예외 처리가 잘 안됨 ~ 캐치해주는 프로세스가 필요!
       throw new BadRequestException('이미 존재하는 병원입니다.');
     }
 

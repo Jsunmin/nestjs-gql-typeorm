@@ -56,7 +56,8 @@ type Doctors {
   gender: Int
   image: String
   searchable: Boolean
-  hospital: Hospitals
+  hospital: Hospitals!
+  doctorTags: [DoctorTags]
 }
 
 type Hospitals {
@@ -75,6 +76,14 @@ type Hospitals {
   doctors: [Doctors]
 }
 
+type DoctorTags {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tag: String!
+  doctor: Doctors!
+}
+
 type AdminDoctors {
   id: Int!
   createdAt: DateTime!
@@ -84,7 +93,16 @@ type AdminDoctors {
   gender: Int
   image: String
   searchable: Boolean
-  hospital: Hospitals
+  hospital: AdminHospitals!
+  doctorTags: [AdminDoctorTags]
+}
+
+type AdminDoctorTags {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tag: String!
+  doctor: Doctors!
 }
 
 type Mutation {
@@ -99,9 +117,41 @@ input CreateAdminHospitalInput {
   name: String!
   addr: String!
   phone: String!
+  safePhone: String
   hospitalType: HospitalTypesEnum!
   longitude: Float!
   latitude: Float!
+  searchable: Boolean
+  isDeleted: Boolean
+  doctors: [DoctorInput]
+}
+
+input DoctorInput {
+  name: String!
+  position: String!
+  gender: Int
+  image: String
+  searchable: Boolean
+  hospital: HospitalInput!
+  doctorTags: [DoctorTagInput]
+}
+
+input HospitalInput {
+  name: String!
+  addr: String!
+  phone: String!
+  safePhone: String
+  hospitalType: HospitalTypesEnum!
+  longitude: Float!
+  latitude: Float!
+  searchable: Boolean
+  isDeleted: Boolean
+  doctors: [DoctorInput]
+}
+
+input DoctorTagInput {
+  tag: String!
+  doctor: DoctorInput!
 }
 
 input UpdateAdminHospitalInput {
@@ -120,34 +170,19 @@ input UpdateAdminHospitalInput {
   doctors: [DoctorInput!]
 }
 
-input DoctorInput {
-  name: String!
-  position: String!
-  gender: Int
-  image: String
-  searchable: Boolean
-  hospital: HospitalInput
-}
-
-input HospitalInput {
-  name: String!
-  addr: String!
-  phone: String!
-  safePhone: String
-  hospitalType: HospitalTypesEnum!
-  longitude: Float!
-  latitude: Float!
-  searchable: Boolean
-  isDeleted: Boolean
-  doctors: [DoctorInput]
-}
-
 input CreateDoctorInput {
   name: String!
   position: String!
   gender: Int!
   image: String
+  doctorTags: [AdminDoctorTagInput]
   hospitalId: Int
+  adminHospital: UpdateAdminHospitalInput!
+}
+
+input AdminDoctorTagInput {
+  tag: String!
+  doctor: DoctorInput!
 }
 
 input UpdateDoctorInput {
@@ -160,5 +195,7 @@ input UpdateDoctorInput {
   image: String
   searchable: Boolean
   hospital: HospitalInput
+  doctorTags: [AdminDoctorTagInput]
   hospitalId: Int
+  adminHospital: UpdateAdminHospitalInput
 }
