@@ -1,6 +1,6 @@
 import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { IsPhoneNumber, IsPositive } from 'class-validator';
-import { Hospitals, HospitalTypesEnum } from 'src/entities/Hospitals';
+import { Hospitals, HospitalTypesEnum } from 'src/entities';
 
 registerEnumType(HospitalTypesEnum, {
   name: 'HospitalTypesEnum',

@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany } from 'typeorm';
 import {
   Field,
   ObjectType,
@@ -18,21 +18,10 @@ registerEnumType(HospitalTypesEnum, {
 });
 // code-first: SDL과 DDL 일원화 & code type -> schema 로 (type-graphql 지향)
 
-@Entity({ schema: 'sparrowT', name: 'hospitals' })
 @ObjectType({ isAbstract: true })
 @InputType('HospitalInput', { isAbstract: true })
+@Entity('hospitals')
 export class Hospitals extends DefaultTableForm {
-  constructor(hospital?: Partial<Hospitals>) {
-    super();
-    if (hospital) {
-      this.name = hospital.name;
-      this.addr = hospital.addr;
-      this.phone = hospital.phone;
-      this.safePhone = this.setSafePhone();
-      this.hospitalType = hospital.hospitalType;
-    }
-  }
-
   @Field()
   @Column({ length: 250 })
   name: string;

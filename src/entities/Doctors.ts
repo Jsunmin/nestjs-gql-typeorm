@@ -1,11 +1,20 @@
-import { Entity, Column, RelationId, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  RelationId,
+  PrimaryColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 import { Field, Int, ObjectType, InputType } from '@nestjs/graphql';
 import { DefaultTableForm } from './commonSchema';
 import { Hospitals } from './Hospitals';
+import { DoctorTags } from './DoctorTags';
 
-@Entity({ schema: 'sparrowT', name: 'doctors' })
 @ObjectType({ isAbstract: true })
 @InputType('DoctorInput', { isAbstract: true })
+@Entity('doctors')
 export class Doctors extends DefaultTableForm {
   @Field()
   @Column({ length: 10 })
@@ -27,11 +36,15 @@ export class Doctors extends DefaultTableForm {
   @Column({ default: true, nullable: true })
   searchable: boolean;
 
-  @RelationId((doctor: Doctors) => doctor.hospital)
-  hospitalId?: number;
-
-  @Field(() => Hospitals, { nullable: true })
-  @ManyToOne(() => Hospitals, (hospital) => hospital.doctors) // arg0: 현재 테이블 기준, arg1: 맵핑되는 테이블 기준
+  @Field(() => Hospitals)
+  @ManyToOne(() => Hospitals, (hospital) => hospital.doctors, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  }) // arg0: 현재 테이블 기준, arg1: 맵핑되는 테이블 기준
   @JoinColumn({ name: 'hospitalId', referencedColumnName: 'id' })
-  hospital?: Hospitals;
+  hospital: Hospitals;
+
+  @Field(() => [DoctorTags], { nullable: 'itemsAndList' })
+  @OneToMany(() => DoctorTags, (doctorTags) => doctorTags.doctor)
+  doctorTags?: DoctorTags[];
 }

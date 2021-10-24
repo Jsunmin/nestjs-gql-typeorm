@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import gqlConfig from './config/graphql';
-import { ormConfig, TypeOrmConfigService } from './config/typeorm';
+import { ormConfig } from './config/typeorm';
 import { LoggerMiddleware } from './common';
 import { MobileModule } from './presenters/mobile/mobile.module';
 import { HospitalAdminModule } from './presenters/hospitalAdmin/hospitalAdmin.module';

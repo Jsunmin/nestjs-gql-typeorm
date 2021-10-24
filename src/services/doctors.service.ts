@@ -15,9 +15,9 @@ export class DoctorsService {
   async create(createDoctorInput: Doctors) {
     const doctor = this.doctorRepository.create(createDoctorInput);
     // TODO: 이렇게 관계 지어야만 할까?
-    if (createDoctorInput.hospitalId) {
+    if (createDoctorInput.hospital) {
       doctor.hospital = await this.hospitalRepository.findOne({
-        where: { id: createDoctorInput.hospitalId },
+        where: { id: createDoctorInput.hospital },
       });
       if (!doctor.hospital) {
         throw new NotFoundException('존재하지 않는 병원입니다.');
@@ -44,9 +44,9 @@ export class DoctorsService {
       where: { id },
       relations: ['hospital'],
     });
-    if (updateDoctorInput.hospitalId) {
+    if (updateDoctorInput.hospital) {
       doctor.hospital = await this.hospitalRepository.findOne({
-        where: { id: updateDoctorInput.hospitalId },
+        where: { id: updateDoctorInput.hospital },
       });
       if (!doctor.hospital) {
         throw new NotFoundException('존재하지 않는 병원입니다.');
