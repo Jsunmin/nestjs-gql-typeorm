@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
 import { HospitalsService } from 'src/services/hospitals.service';
 import { MobileService } from './mobile.service';
-import { UpdateMobileHospitalInput } from './dto/updateMobileHospital.dto';
+import { UpdateMobileHospitalInput } from './dto/mobileHospital.dto';
 import { MobileHospitals } from './entities/MobileHospital';
 
 @Injectable()

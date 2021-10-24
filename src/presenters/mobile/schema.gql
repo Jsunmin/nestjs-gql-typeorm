@@ -13,16 +13,57 @@ type MobileHospitals {
   appHospitalField2: String
 }
 
+type MobileUsers {
+  id: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  password: String!
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   mobileHospitals(page: Int = 20, skip: Int = 0): [MobileHospitals]!
   mobilehospital(id: Int!): MobileHospitals!
+  findAllMobileUsers: [MobileUsers!]!
+  findOneMobileUser: MobileUsers!
 }
 
 type Mutation {
   updateMobileHospital(updateMobileHospitalInput: UpdateMobileHospitalInput!): MobileHospitals!
+  mobileUserLogin(loginRequestDto: LoginRequestDto!): LoginResponseDto!
+  createMobileUser(createUserInput: CreateMobileUserInput!): MobileUsers!
+  updateMobileUser(updateUserInput: UpdateMobileUserInput!): MobileUsers!
 }
 
 input UpdateMobileHospitalInput {
   id: Int!
   appHospitalField1: String
+}
+
+type LoginResponseDto {
+  email: String!
+  token: String!
+}
+
+input LoginRequestDto {
+  email: String!
+  password: String!
+}
+
+input CreateMobileUserInput {
+  email: String!
+  password: String!
+  name: String!
+}
+
+input UpdateMobileUserInput {
+  id: Int!
+  password: String!
+  name: String!
 }
