@@ -1,6 +1,6 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { MobileUsers } from './entities/MobileUser';
+import { MobileUsers, MobileUsersWithoutPassword } from './entities/MobileUser';
 import { CreateMobileUserInput, UpdateMobileUserInput } from './dto/user.dto';
 import { LoginRequestDto, LoginResponseDto } from './dto/login.dto';
 import { CurrentUser } from 'src/common/auth/jwt/jwt.decorator';
@@ -22,7 +22,7 @@ export class MobileUsersResolver {
     return { email, token };
   }
 
-  @Mutation(() => MobileUsers)
+  @Mutation(() => MobileUsersWithoutPassword)
   async createMobileUser(
     @Args('createUserInput') createUserInput: CreateMobileUserInput,
   ) {

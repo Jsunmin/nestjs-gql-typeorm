@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAdminHospitalInput } from './dto/createAdminHospital.dto';
-import { UpdateAdminHospitalInput } from './dto/updateAdminHospital.dto';
+import {
+  CreateAdminHospitalInput,
+  UpdateAdminHospitalInput,
+} from './dto/adminHospital.dto';
 
 @Injectable()
 export class HospitalAdminService {

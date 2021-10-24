@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Int } from '@nestjs/graphql';
 import { HospitalsService } from 'src/services/hospitals.service';
 import { HospitalAdminService } from './hospitalAdmin.service';
-import { CreateAdminHospitalInput } from './dto/createAdminHospital.dto';
-import { UpdateAdminHospitalInput } from './dto/updateAdminHospital.dto';
+import {
+  CreateAdminHospitalInput,
+  UpdateAdminHospitalInput,
+} from './dto/adminHospital.dto';
 import { AdminHospitals } from './entities/AdminHospital.entity';
 
 @Injectable()

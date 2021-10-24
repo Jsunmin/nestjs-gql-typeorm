@@ -1,8 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { DoctorsService } from 'src/services/doctors.service';
 import { AdminDoctors } from './entities/AdminDoctor.entity';
-import { CreateDoctorInput } from './dto/createDoctor.dto';
-import { UpdateDoctorInput } from './dto/updateDoctor.dto';
+import { CreateDoctorInput, UpdateDoctorInput } from './dto/adminDoctor.dto';
 
 @Resolver()
 export class DoctorsResolver {

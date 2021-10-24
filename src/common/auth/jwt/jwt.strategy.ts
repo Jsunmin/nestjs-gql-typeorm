@@ -12,6 +12,7 @@ import { TOKEN_SECRET } from 'src/environments';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
+    // nestjs/typeorm 에서 제공하는 데코레이터 아래 객체에 대해 User에 Users table에 접근하는 기능 제공!?
     @InjectRepository(Users)
     private userRepository: Repository<Users>,
     @InjectRepository(AdminUsers)

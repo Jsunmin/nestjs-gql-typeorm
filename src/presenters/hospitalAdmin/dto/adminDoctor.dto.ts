@@ -42,3 +42,9 @@ export class CreateDoctorInput extends AdminDoctors {
  *    objectType에서 정의된 관계에 대한 정의가 필수가 되는 이슈.
  *    등 고려해볼 때 inputType과 objectType을 구분해야 한다!
  */
+
+@InputType()
+export class UpdateDoctorInput extends CreateDoctorInput {
+  @Field(() => Int)
+  id: number;
+}
