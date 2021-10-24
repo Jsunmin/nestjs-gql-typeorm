@@ -51,4 +51,6 @@ yarn add @nestjs/graphql graphql apollo-server-express
   6. validation
     - class-validator: 데코레이터 패턴으로, 엔티티 or DTO의 특정 필드값의 유효성 조건을 건다!
       https://www.npmjs.com/package/class-validator#Validation%20decorators
-    - 
+  7. Gurard
+    - 주로 권한에 대한 체크가 있을때 사용함
+    - 가드는 인터셉터보다 더 먼저 수행된다!
