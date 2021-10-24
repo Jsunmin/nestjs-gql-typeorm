@@ -13,20 +13,6 @@ type MobileHospitals {
   appHospitalField2: String
 }
 
-type MobileUsers {
-  id: Int!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  email: String!
-  password: String!
-  name: String!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type MobileUsersWithoutPassword {
   id: Int!
   createdAt: DateTime!
@@ -35,13 +21,18 @@ type MobileUsersWithoutPassword {
   name: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   adminHospitals(page: Int = 20, skip: Int = 0): [AdminHospitals]!
   adminhospital(id: Int!): AdminHospitals!
   adminDoctors: [AdminDoctors]!
   adminDoctor(id: Int!): AdminDoctors!
-  findAllAdminUsers: [AdminUsers!]!
-  findOneAdminUser: AdminUsers!
+  findAllAdminUsers: [AdminUsersWithoutPassword!]!
+  findOneAdminUser: AdminUsersWithoutPassword!
 }
 
 type AdminHospitals {
@@ -124,12 +115,11 @@ type AdminDoctorTags {
   doctor: Doctors!
 }
 
-type AdminUsers {
+type AdminUsersWithoutPassword {
   id: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String!
-  password: String!
   name: String!
 }
 
@@ -140,8 +130,8 @@ type Mutation {
   updateAdminDoctor(updateDoctorInput: UpdateDoctorInput!): AdminDoctors!
   removeAdminDoctor(id: Int!): AdminDoctors!
   adminUserLogin(loginRequestDto: LoginRequestDto!): LoginResponseDto!
-  createAdminUser(createUserInput: CreateAdminUserInput!): AdminUsers!
-  updateAdminUser(updateUserInput: UpdateAdminUserInput!): AdminUsers!
+  createAdminUser(createUserInput: CreateAdminUserInput!): AdminUsersWithoutPassword!
+  updateAdminUser(updateUserInput: UpdateAdminUserInput!): AdminUsersWithoutPassword!
 }
 
 input CreateAdminHospitalInput {

@@ -29,20 +29,20 @@ export class MobileUsersResolver {
     return this.usersService.create(createUserInput);
   }
 
-  @Query(() => [MobileUsers])
+  @Query(() => [MobileUsersWithoutPassword])
   @UseGuards(JwtAuthGuard)
   async findAllMobileUsers() {
     return this.usersService.findAll();
   }
 
-  @Query(() => MobileUsers)
+  @Query(() => MobileUsersWithoutPassword)
   @UseGuards(JwtAuthGuard)
   async findOneMobileUser(@CurrentUser() user: MobileUsers) {
     console.log(user, '333~');
     return this.usersService.findOne(user.id);
   }
 
-  @Mutation(() => MobileUsers)
+  @Mutation(() => MobileUsersWithoutPassword)
   async updateMobileUser(
     @Args('updateUserInput') updateUserInput: UpdateMobileUserInput,
   ) {

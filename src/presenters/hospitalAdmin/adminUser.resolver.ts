@@ -1,6 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-import { AdminUsers } from './entities/AdminUser.entity';
+import {
+  AdminUsers,
+  AdminUsersWithoutPassword,
+} from './entities/AdminUser.entity';
 import {
   CreateAdminUserInput,
   UpdateAdminUserInput,
@@ -25,27 +28,27 @@ export class AdminUsersResolver {
     return { email, token };
   }
 
-  @Mutation(() => AdminUsers)
+  @Mutation(() => AdminUsersWithoutPassword)
   async createAdminUser(
     @Args('createUserInput') createUserInput: CreateAdminUserInput,
   ) {
     return this.adminUsersService.create(createUserInput);
   }
 
-  @Query(() => [AdminUsers])
+  @Query(() => [AdminUsersWithoutPassword])
   @UseGuards(JwtAuthGuard)
   async findAllAdminUsers() {
     return this.adminUsersService.findAll();
   }
 
-  @Query(() => AdminUsers)
+  @Query(() => AdminUsersWithoutPassword)
   @UseGuards(JwtAuthGuard)
   async findOneAdminUser(@CurrentUser() user: AdminUsers) {
     console.log(user, '111~');
     return this.adminUsersService.findOne(user.id);
   }
 
-  @Mutation(() => AdminUsers)
+  @Mutation(() => AdminUsersWithoutPassword)
   async updateAdminUser(
     @Args('updateUserInput') updateUserInput: UpdateAdminUserInput,
   ) {

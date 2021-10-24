@@ -13,12 +13,11 @@ type MobileHospitals {
   appHospitalField2: String
 }
 
-type MobileUsers {
+type MobileUsersWithoutPassword {
   id: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String!
-  password: String!
   name: String!
 }
 
@@ -30,15 +29,15 @@ scalar DateTime
 type Query {
   mobileHospitals(page: Int = 20, skip: Int = 0): [MobileHospitals]!
   mobilehospital(id: Int!): MobileHospitals!
-  findAllMobileUsers: [MobileUsers!]!
-  findOneMobileUser: MobileUsers!
+  findAllMobileUsers: [MobileUsersWithoutPassword!]!
+  findOneMobileUser: MobileUsersWithoutPassword!
 }
 
 type Mutation {
   updateMobileHospital(updateMobileHospitalInput: UpdateMobileHospitalInput!): MobileHospitals!
   mobileUserLogin(loginRequestDto: LoginRequestDto!): LoginResponseDto!
-  createMobileUser(createUserInput: CreateMobileUserInput!): MobileUsers!
-  updateMobileUser(updateUserInput: UpdateMobileUserInput!): MobileUsers!
+  createMobileUser(createUserInput: CreateMobileUserInput!): MobileUsersWithoutPassword!
+  updateMobileUser(updateUserInput: UpdateMobileUserInput!): MobileUsersWithoutPassword!
 }
 
 input UpdateMobileHospitalInput {
